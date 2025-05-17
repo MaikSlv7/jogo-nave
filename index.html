@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jogo da Nave - Etapa 1</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+    }
+    canvas {
+      display: block;
+      background: linear-gradient(#000010, #001133);
+    }
+  </style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<script>
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const nave = {
+    x: canvas.width / 2 - 20,
+    y: canvas.height - 80,
+    width: 40,
+    height: 40,
+    speed: 5
+  };
+
+  const teclas = {};
+
+  window.addEventListener("keydown", (e) => teclas[e.key] = true);
+  window.addEventListener("keyup", (e) => teclas[e.key] = false);
+
+  function desenharFundo(estrelas) {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    for (let e of estrelas) {
+      e.y += e.vel;
+      if (e.y > canvas.height) e.y = 0;
+      ctx.fillStyle = e.cor;
+      ctx.fillRect(e.x, e.y, 2, 2);
+    }
+  }
+
+  const estrelas = Array.from({ length: 100 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vel: 0.5 + Math.random() * 1.5,
+    cor: "#0ff"
+  }));
+
+  function desenharNave() {
+    ctx.fillStyle = "#0ff";
+    ctx.beginPath();
+    ctx.moveTo(nave.x + nave.width / 2, nave.y);
+    ctx.lineTo(nave.x, nave.y + nave.height);
+    ctx.lineTo(nave.x + nave.width, nave.y + nave.height);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function atualizar() {
+    if (teclas["ArrowLeft"] && nave.x > 0) nave.x -= nave.speed;
+    if (teclas["ArrowRight"] && nave.x < canvas.width - nave.width) nave.x += nave.speed;
+    if (teclas["ArrowUp"] && nave.y > 0) nave.y -= nave.speed;
+    if (teclas["ArrowDown"] && nave.y < canvas.height - nave.height) nave.y += nave.speed;
+  }
+
+  function loop() {
+    desenharFundo(estrelas);
+    atualizar();
+    desenharNave();
+    requestAnimationFrame(loop);
+  }
+
+  loop();
+</script>
+</body>
+</html>
