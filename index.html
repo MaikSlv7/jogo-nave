@@ -5,15 +5,41 @@
   <meta charset="UTF-8">
   <title>Jogo da Nave</title>
   <style>
-    body { margin: 0; overflow: hidden; background: black; height: 100vh; width: 100vw; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: url('./img/fundo.png') no-repeat center center/cover;
+      height: 100vh;
+      width: 100vw;
+    }
     #game-area { width: 100%; height: 100%; position: relative; }
-    #nave { position: absolute; width: 50px; height: 50px; background: url('./img/nave.png') no-repeat center; background-size: contain; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    #nave {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: url('./img/nave.png') no-repeat center;
+      background-size: contain;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
     .tiro { position: absolute; width: 5px; height: 20px; background: red; }
-    .inimigo, .boss { position: absolute; background-size: contain; background-repeat: no-repeat; }
+    .inimigo, .boss {
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
     .inimigo { width: 40px; height: 40px; background-image: url('./img/inimigo.png'); }
     .boss { width: 100px; height: 100px; background-image: url('./img/boss.png'); }
-    .powerup { position: absolute; width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; }
-    #placar, #vidas { position: absolute; color: white; font-size: 20px; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 8px; }
+    .powerup { position: absolute; width: 30px; height: 30px; background: url('./img/powerups.png') no-repeat center; background-size: contain; }
+    #placar, #vidas {
+      position: absolute;
+      color: white;
+      font-size: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
     #placar { top: 10px; left: 10px; }
     #vidas { top: 10px; right: 10px; }
   </style>
